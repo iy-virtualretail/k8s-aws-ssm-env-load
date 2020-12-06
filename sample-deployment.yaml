@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssm-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: ssmenvtest
+  template:
+    metadata:
+      labels:
+        app: ssmenvtest
+    spec:
+      containers:
+      - name: ssmenvtest
+        image: yenigul/k8s-aws-ssm-env-load
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        env:
+        - name: AWS_DEFAULT_REGION
+          value: eu-west-1
+        - name: SSM_PATHS
+          value: '["/dev", "/prod"]'
+       

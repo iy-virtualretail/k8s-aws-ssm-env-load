@@ -98,3 +98,9 @@ bash-5.0$
 ## TODO
 
 * Add exceptions handling to python code
+
+
+## Notes
+
+If you access to container/pod with `docker exec container /bin/bash` or `kubectl exec -it pod  -- /bin/bash`  You will not see any env variables.
+To solve this issue you must run `docker-entrypoint.sh /bin/bash` instead of just `/bin/bash` to load env

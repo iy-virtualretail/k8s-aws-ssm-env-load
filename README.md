@@ -3,7 +3,9 @@ Example project to load Kubernetes env and secret from ssm parameter store paths
 
 It based on https://github.com/christippett/ssm-parameter-store code.
 
-How it work?
+This is just for a POC perpuses. 
+
+### How it work?
 
 * docker-entrypoint.sh calls load-ssm-parameters.py and then execute CMD
 * load-ssm-parameters.py expects SSM_PATHS variable in list format. ` SSM_PATHS='["/dev", "/common"]'`  then it read all ssm parameters from AWS Parameter store and write into /tmp/env.sh (`export ENV=VALUE` lines)
@@ -93,3 +95,6 @@ bash-5.0$
 
 
 
+## TODO
+
+* Add exceptions handling to python code

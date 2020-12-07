@@ -44,13 +44,20 @@ Ensure that your k8s node or pod has right permission to read from AWS SSM Param
 ### Create ssm parameters
 
 ```
-aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --region eu-west-1
-aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --region eu-west-1
-aws ssm put-parameter --name "/dev/MYSECRETENV2" --value "secretenv" --type 
-SecureString
-aws ssm put-parameter --name "/common/COMMONENV1" --value "MYCOMMONENV1" --region eu-west-1
+aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --type String --region eu-west-1
+aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --type String --region eu-west-1
+aws ssm put-parameter --name "/dev/MYSECRETENV2" --value "secretenv" --type SecureString --region eu-west-1 
+aws ssm put-parameter --name "/common/COMMONENV1" --value "MYCOMMONENV1"  --type String --region eu-west-1 
 
 ```
+
+### Test with docker
+
+```
+docker run -d -v /Users/ismail/.aws:/root/.aws -p 8080:80 -e SSM_PATHS='["/dev", "/custom"]' yenigul/k8s-aws-ssm-env-load
+
+```
+
 
 
 

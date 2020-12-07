@@ -53,9 +53,38 @@ aws ssm put-parameter --name "/common/COMMONENV1" --value "MYCOMMONENV1"  --type
 
 ### Test with docker
 
+I assume that your user's ~/.aws directory has a configuration to access AWS SSM Parameter store
 ```
-docker run -d -v /Users/ismail/.aws:/root/.aws -p 8080:80 -e SSM_PATHS='["/dev", "/custom"]' yenigul/k8s-aws-ssm-env-load
+# docker run -d -v /Users/ismail/.aws:/root/.aws -p 8080:80 -e SSM_PATHS='["/dev", "/common"]' yenigul/k8s-aws-ssm-env-load
 
+$ curl localhost:8080/index.php
+MYENV1: value1
+MYENV2: envvalue2
+MYSECRETENV: secretenv
+COMMONENV1: MYCOMMONENV1
+```
+
+
+
+### Test with EKS
+```
+
+$ kubectl apply -f sample-deployment.yaml
+$ kubectl get pods -o wide 
+ssm-deployment-7cb8d5b4c4-59rph                   1/1     Running   0          2m11s   192.168.102.137   ip-192-168-113-188.eu-west-1.compute.internal   <none>           <none>
+
+
+Let's start another pod in the same namespace to connect ssm deployment pod IP address
+
+kubectl run --rm utils -it  --generator=run-pod/v1 --image yenigul/dockernettools bash
+Flag --generator has been deprecated, has no effect and will be removed in the future.
+
+bash-5.0$ curl  192.168.102.137/index.php
+MYENV1: value1
+MYENV2: envvalue2
+MYSECRETENV: secretenv
+COMMONENV1: MYCOMMONENV1
+bash-5.0$ 
 ```
 
 

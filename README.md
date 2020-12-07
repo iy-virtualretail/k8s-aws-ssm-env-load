@@ -31,6 +31,7 @@ header('Content-Type: text/plain; charset=utf-8');
 print "MYENV1: " . getenv('MYENV1') . "\n" .
       "MYENV2: " . getenv('MYENV2') . "\n" .
       "MYSECRETENV: " . getenv('MYSECRETENV') . "\n";
+      "COMMONENV1: " . getenv('COMMONENV1') . "\n";
 ?>⏎ 
 ```
 
@@ -43,7 +44,9 @@ print "MYENV1: " . getenv('MYENV1') . "\n" .
 ```
 aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --region eu-west-1
 aws ssm put-parameter --name "/dev/MYENV1" --value "MYENV1" --region eu-west-1
-aws ssm put-parameter --name "/dev/MYSECRETENV2" --value "secretenv" --type SecureString
+aws ssm put-parameter --name "/dev/MYSECRETENV2" --value "secretenv" --type 
+SecureString
+aws ssm put-parameter --name "/common/COMMONENV1" --value "MYCOMMONENV1" --region eu-west-1
 
 ```
 

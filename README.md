@@ -5,7 +5,7 @@ It based on https://github.com/christippett/ssm-parameter-store code.
 
 This is just for a POC perpuses. 
 
-### How it work?
+### How it works?
 
 * docker-entrypoint.sh calls load-ssm-parameters.py and then execute CMD
 * load-ssm-parameters.py expects SSM_PATHS variable in list format. ` SSM_PATHS='["/dev", "/common"]'`  then it read all ssm parameters from AWS Parameter store and write into /tmp/env.sh (`export ENV=VALUE` lines)
@@ -103,4 +103,4 @@ bash-5.0$
 ## Notes
 
 If you access to container/pod with `docker exec container /bin/bash` or `kubectl exec -it pod  -- /bin/bash`  You will not see any env variables.
-To solve this issue you must run `docker-entrypoint.sh /bin/bash` instead of just `/bin/bash` to load env
+To solve this issue you must run `docker-entrypoint.sh /bin/bash` instead of just `/bin/bash` to see environment variables properly.

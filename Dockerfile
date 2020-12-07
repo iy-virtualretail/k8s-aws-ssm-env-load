@@ -8,11 +8,10 @@ RUN  apt-get update \
      python3-pip apache2 php
 
 RUN pip3 install ssm-parameter-store
-COPY ./docker-entrypoint.sh /bin/
-RUN chmod 755 /bin/docker-entrypoint.sh
+COPY ./docker-entrypoint.sh /bin
 COPY load-ssm-parameters.py /bin
+RUN chmod 755 /bin/docker-entrypoint.sh /bin/load-ssm-parameters.py
 COPY index.php /var/www/html/index.php
-#COPY environment-variables.go /bin
 
 
 EXPOSE 80

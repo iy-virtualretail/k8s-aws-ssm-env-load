@@ -6,7 +6,7 @@ It based on https://github.com/christippett/ssm-parameter-store code.
 How it work?
 
 * docker-entrypoint.sh calls load-ssm-parameters.py and then execute CMD
-* load-ssm-parameters.py expects SSM_PATHS variable in list format. ` SSM_PATHS='["/dev", "/prod"]'`  then it read all ssm parameters from AWS Parameter store and write into /tmp/env.sh (`export ENV=VALUE` lines)
+* load-ssm-parameters.py expects SSM_PATHS variable in list format. ` SSM_PATHS='["/dev", "/common"]'`  then it read all ssm parameters from AWS Parameter store and write into /tmp/env.sh (`export ENV=VALUE` lines)
 * docker-entrypoint.sh calls `/tmp/env.sh` to load env variables then issue `exec $@` do start actual service.
 
 ```
@@ -38,6 +38,8 @@ print "MYENV1: " . getenv('MYENV1') . "\n" .
 
 ## How to test it?
 
+### IAM Roles
+Ensure that your k8s node or pod has right permission to read from AWS SSM Parameter store.
 
 ### Create ssm parameters
 

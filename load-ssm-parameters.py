@@ -3,7 +3,7 @@
 import os
 import json
 from ssm_parameter_store import EC2ParameterStore
-print("settings env from ssm")
+print("fetching env from ssm parameter store")
 #os.environ['SSM_PATHS'] = '["/dev", "/prod"]'
 print(json.loads(os.environ.get('SSM_PATHS')))
 
@@ -14,7 +14,7 @@ for p in json.loads(os.environ.get('SSM_PATHS')):
     EC2ParameterStore.set_env(parameters)
 
     for k, v in parameters.items():
-        print(f'export {k}={v}')
+        print(f'export {k}={v}') #print to console for test purposes
         with open("/tmp/env.sh", 'a') as f:
             print(f'export {k}={v}', file=f)
 

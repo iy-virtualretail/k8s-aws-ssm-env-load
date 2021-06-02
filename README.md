@@ -3,7 +3,7 @@ Example project to load Kubernetes env and secret from ssm parameter store paths
 
 It based on https://github.com/christippett/ssm-parameter-store code.
 
-This is just for a POC perpuses. 
+This is just for a POC porpuses. 
 
 ### How it works?
 
